@@ -29,13 +29,12 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   return (
-    <>
-      <nav
-        className={`fixed inset-x-0 top-0 z-50 w-full border-b border-white/10 bg-[#2f190f]/95 backdrop-blur-md transition-transform duration-300 ease-out ${
-          isVisible ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-        <div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-3.5 text-[#fff4e7] md:px-10 md:py-4 lg:px-16">
+    <nav
+      className={`fixed inset-x-0 top-0 z-50 w-full border-b border-white/10 bg-[#2f190f]/95 backdrop-blur-md transition-transform duration-300 ease-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      <div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-3.5 text-[#fff4e7] md:px-10 md:py-4 lg:px-16">
         <button
           type="button"
           className="flex items-center text-[#fff4e7] md:hidden"
@@ -65,7 +64,7 @@ export default function Navbar() {
         <div className="hidden flex-1 items-center justify-end gap-6 text-[15px] font-semibold tracking-[0.08em] md:flex lg:gap-10">
           <div className="flex items-center gap-3 whitespace-nowrap">
             <MessageCircleMore size={18} className="text-[#efc28d]" strokeWidth={2.4} />
-            <span className="">+91 98765 43210</span>
+            <span>+91 98765 43210</span>
           </div>
           <div className="flex items-center gap-3 whitespace-nowrap">
             <User size={18} className="text-[#efc28d]" strokeWidth={2.4} />
@@ -79,36 +78,34 @@ export default function Navbar() {
             <span>CART</span>
           </button>
         </div>
-        </div>
+      </div>
 
-        {isMenuOpen && (
-          <div className="border-t border-white/10 bg-[#3b2113] px-5 py-5 text-[#fff4e7] md:hidden">
-            <ul className="flex flex-col gap-4 text-sm font-semibold tracking-[0.14em]">
-              {navItems.map((item) => (
-                <li key={item} className="cursor-pointer transition hover:text-[#efc28d]">
-                  {item}
-                </li>
-              ))}
-            </ul>
+      {isMenuOpen && (
+        <div className="border-t border-white/10 bg-[#3b2113] px-5 py-5 text-[#fff4e7] md:hidden">
+          <ul className="flex flex-col gap-4 text-sm font-semibold tracking-[0.14em]">
+            {navItems.map((item) => (
+              <li key={item} className="cursor-pointer transition hover:text-[#efc28d]">
+                {item}
+              </li>
+            ))}
+          </ul>
 
-            <div className="mt-5 space-y-4 border-t border-white/10 pt-5 text-sm font-semibold">
-              <div className="flex items-center gap-3">
-                <MessageCircleMore size={18} className="text-[#efc28d]" strokeWidth={2.4} />
-                <span className="text-[#efc28d]">+91 98765 43210</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <User size={18} className="text-[#efc28d]" strokeWidth={2.4} />
-                <span>MY ACCOUNT</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <ShoppingCart size={18} className="text-[#efc28d]" strokeWidth={2.4} />
-                <span>CART</span>
-              </div>
+          <div className="mt-5 space-y-4 border-t border-white/10 pt-5 text-sm font-semibold">
+            <div className="flex items-center gap-3">
+              <MessageCircleMore size={18} className="text-[#efc28d]" strokeWidth={2.4} />
+              <span className="text-[#efc28d]">+91 98765 43210</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <User size={18} className="text-[#efc28d]" strokeWidth={2.4} />
+              <span>MY ACCOUNT</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <ShoppingCart size={18} className="text-[#efc28d]" strokeWidth={2.4} />
+              <span>CART</span>
             </div>
           </div>
-        )}
-      </nav>
-      <div className="h-[84px] sm:h-[92px] md:h-[102px] lg:h-[112px]" />
-    </>
+        </div>
+      )}
+    </nav>
   );
 }

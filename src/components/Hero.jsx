@@ -51,12 +51,15 @@ export default function Hero() {
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,208,128,0.12),_transparent_34%)]" />
 
-      <div className="relative mx-auto grid min-h-[calc(100vh-96px)] max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 md:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:px-16 lg:py-20">
+      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-5 pb-16 pt-28 sm:px-8 md:px-10 md:pb-20 md:pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:px-16 lg:pt-36">
         <div className="max-w-2xl text-white">
           <span className="inline-flex rounded-full border border-[#f0c89b]/60 bg-[#fff6eb]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.35em] text-[#ffe4bf]">
             Fresh From The Oven
           </span>
-          <h1 className="mt-6 text-4xl font-black uppercase leading-tight sm:text-5xl lg:text-6xl">
+          <h1
+            className="mt-6 text-5xl font-normal uppercase leading-[0.95] tracking-[0.08em] sm:text-6xl lg:text-7xl"
+            style={{ fontFamily: '"Patrick Hand", cursive' }}
+          >
             Fresh Bakes, Daily
           </h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-[#f9e6d2] sm:text-lg">

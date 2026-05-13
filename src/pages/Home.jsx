@@ -1,18 +1,20 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import Navbar from '../components/Navbar'
 import PopularItems from '../components/PopularItems'
 import Specialist from '../components/Specialist'
 import Products from '../components/Products'
+import FAQ from '../components/FAQ'
+import Feedback from '../components/Feedback'
 
-const Home = () => {
+const Home = ({ addToCart }) => {
   return (
     <>
-    <Navbar/>
     <Hero/>
     <Specialist/>
     <PopularItems/>
-    <Products/>
+    <Products addToCart={addToCart} />
+    <FAQ/>
+    <Feedback/>
     </>
   )
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, MessageCircleMore, ShoppingCart, User, X } from "lucide-react";
 import bakeryLogo from "../assets/bakery-logo.png";
 
-export default function Navbar() {
+export default function Navbar({ activePage, setActivePage, cartCount, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -37,9 +37,15 @@ export default function Navbar() {
     return () => window.clearTimeout(timeoutId);
   }, []);
 
+  const handleNavClick = (item) => {
+    setActivePage(item);
+    setIsMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 w-full border-b border-white/10 bg-black/30 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+      className={`fixed inset-x-0 top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-md transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       } ${
         hasLoaded ? "opacity-100" : "-translate-y-6 opacity-0"
@@ -64,14 +70,22 @@ export default function Navbar() {
           }`}
         >
           {navItems.map((item) => (
-            <li key={item} className="cursor-pointer transition hover:text-[#efc28d]">
+            <li 
+              key={item} 
+              className={`cursor-pointer transition-all duration-300 hover:text-[#efc28d] relative py-1 ${activePage === item ? "text-[#efc28d]" : ""}`}
+              onClick={() => handleNavClick(item)}
+            >
               {item}
+              {activePage === item && (
+                <span className="absolute bottom-0 left-0 h-0.5 w-full bg-[#efc28d] transition-all duration-300"></span>
+              )}
             </li>
           ))}
         </ul>
 
         <a
           href="/"
+          onClick={(e) => { e.preventDefault(); handleNavClick('HOME'); }}
           className={`mx-auto px-4 outline-none ring-0 border-0 shadow-none transition-all delay-200 duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 md:px-8 ${
             hasLoaded ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           }`}
@@ -93,15 +107,23 @@ export default function Navbar() {
             <MessageCircleMore size={18} className="text-[#efc28d]" strokeWidth={2.4} />
             <span>+91 98765 43210</span>
           </div>
-          <div className="flex items-center gap-3 whitespace-nowrap">
+          <div className="flex items-center gap-3 whitespace-nowrap cursor-pointer hover:text-[#efc28d] transition-colors">
             <User size={18} className="text-[#efc28d]" strokeWidth={2.4} />
             <span>MY ACCOUNT</span>
           </div>
           <button
             type="button"
-            className="flex items-center gap-2 whitespace-nowrap rounded-full border border-white/20 bg-white/0 px-4 py-2 transition hover:bg-white/10"
+            onClick={onCartClick}
+            className="flex items-center gap-2 whitespace-nowrap rounded-full border border-white/20 bg-white/0 px-4 py-2 transition hover:bg-white/10 relative cursor-pointer"
           >
-            <ShoppingCart size={20} className="text-[#efc28d]" strokeWidth={2.4} />
+            <div className="relative">
+              <ShoppingCart size={20} className="text-[#efc28d]" strokeWidth={2.4} />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </div>
             <span>CART</span>
           </button>
         </div>
@@ -111,7 +133,11 @@ export default function Navbar() {
         <div className="border-t border-white/10 bg-[#3b2113] px-5 py-5 text-white md:hidden">
           <ul className="flex flex-col gap-4 text-sm font-semibold tracking-[0.14em]">
             {navItems.map((item) => (
-              <li key={item} className="cursor-pointer transition hover:text-[#efc28d]">
+              <li 
+                key={item} 
+                className={`cursor-pointer transition hover:text-[#efc28d] ${activePage === item ? "text-[#efc28d]" : ""}`}
+                onClick={() => handleNavClick(item)}
+              >
                 {item}
               </li>
             ))}
@@ -127,7 +153,7 @@ export default function Navbar() {
               <span>MY ACCOUNT</span>
             </div>
             <div className="flex items-center gap-3">
-              <ShoppingCart size={18} className="text-[#efc28d]" strokeWidth={2.4} />
+              <ShoppingCart size={18} className="text-[#efc28d]" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" />
               <span>CART</span>
             </div>
           </div>

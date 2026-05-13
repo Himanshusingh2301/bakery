@@ -167,7 +167,15 @@ const categories = [
   { key: "donuts", label: "Donuts" }
 ];
 
-function ProductCard({ product }) {
+function ProductCard({ product, addToCart }) {
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAdd = () => {
+    setIsAdding(true);
+    addToCart(product);
+    setTimeout(() => setIsAdding(false), 1000);
+  };
+
   return (
     <div className="flex flex-col bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100" data-aos="fade-up">
       <div className="relative overflow-hidden h-[250px]">
@@ -180,15 +188,18 @@ function ProductCard({ product }) {
       <div className="p-5 flex flex-col flex-grow">
         <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
         <p className="text-2xl font-bold text-amber-500 mt-2 mb-4">{product.price}</p>
-        <button className="water-wave-btn cursor-pointer px-4 py-2 bg-[#d99145] text-white rounded-full font-medium mt-auto">
-          Shop Now
+        <button 
+          onClick={handleAdd}
+          className={`water-wave-btn cursor-pointer px-4 py-2 text-white rounded-full font-medium mt-auto transition-all duration-300 ${isAdding ? 'bg-green-500 scale-95' : 'bg-[#d99145] hover:bg-[#c47d32]'}`}
+        >
+          {isAdding ? 'Added to Cart!' : 'Shop Now'}
         </button>
       </div>
     </div>
   );
 }
 
-export default function Products() {
+export default function Products({ addToCart }) {
   const [activeCategory, setActiveCategory] = useState("breads");
 
   return (
@@ -221,7 +232,7 @@ export default function Products() {
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {productCategories[activeCategory].map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} addToCart={addToCart} />
           ))}
         </div>
       </div>
